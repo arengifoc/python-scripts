@@ -44,7 +44,7 @@ def list_ec2_instances(session: boto3.session.Session, filters: dict) -> list[di
 def print_ec2_instances(ec2_instances: list[dict[str, Any]]) -> None:
     """
     Prints EC2 instances in a table format
-    
+
     Args:
         ec2_instances (list[dict[str, Any]]): List of EC2 instances attributes
     Returns:
@@ -58,8 +58,10 @@ def print_ec2_instances(ec2_instances: list[dict[str, Any]]) -> None:
     state_max_width = max(len(x['state']) for x in ec2_instances)
     dns_name_max_width = max(len(x['dns_name']) for x in ec2_instances)
     platform_max_width = max(len(x['platform']) for x in ec2_instances)
+    platform_max_width = max(platform_max_width, len('Platform'))
     instance_type_max_width = max(
         len(x['instance_type']) for x in ec2_instances)
+    instance_type_max_width = max(instance_type_max_width, len('Instance Type'))
     print(f'{"Name":<{name_max_width}}  ' +
           f'{"Instance ID":<19}  ' +
           f'{"IP":<{ip_max_width}}  ' +
@@ -105,7 +107,7 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     """
     Main function
-    
+
     Args:
         None
     Returns:
